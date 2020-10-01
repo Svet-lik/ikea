@@ -1,7 +1,5 @@
-'use strict';
-
 const generateHeader = () => {
-    const header = `
+    const headerHTML = `
         <header>
           <div class="container">
             <div class="header">
@@ -45,7 +43,7 @@ const generateHeader = () => {
                   aria-label="найти"
                 ></button>
               </form>
-              <a href="goods.html?cat=wishlist" class="btn btn-wishlist">
+              <a href="goods.html?wishlist" class="btn btn-wishlist">
                 <svg
                   focusable="false"
                   class="svg-icon"
@@ -85,6 +83,6 @@ const generateHeader = () => {
         </header>
     `;
 
-    document.body.insertAdjacentHTML('afterbegin', header);
+    document.body.insertAdjacentHTML('afterbegin', headerHTML);
 };
-generateHeader();
+export default generateHeader;
