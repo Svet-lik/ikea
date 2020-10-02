@@ -1,6 +1,20 @@
 const generateSubCatalog = () => {
-    const subCatalogHTML =`
-    <div class="subcatalog">
+  const subCatalog = document.createElement('div');
+  subCatalog.classList.add('subcatalog');
+
+  const updateHTML = (header, list) => {
+    subCatalog.textContent = '';
+    let listHTML = '';
+
+    list.forEach(item => {
+      listHTML += `
+        <li class="subcatalog-list__item">
+          <a href="goods.html?subcat=${item}">${item}</a>
+        </li>
+      `;
+    });
+
+    const subCatalogHTML = `   
     <button
       type="button"
       class="btn btn-return catalog-btn"
@@ -24,44 +38,16 @@ const generateSubCatalog = () => {
         ></path>
       </svg>
     </button>
-    <h3 class="subcatalog-header"><a href="goods.html?cat=Мебель"></a></h3>
+    <h3 class="subcatalog-header"><a href="goods.html?cat=${header}">${header}</a></h3>
     <ul class="subcatalog-list">
-      <li class="subcatalog-list__item">
-        <a href="goods.html?subcat=Диваны">Диваны</a>
-      </li>
-      <li class="subcatalog-list__item">
-        <a href="goods.html?subcat=Кресла">Кресла</a>
-      </li>
-      <li class="subcatalog-list__item">
-        <a href="goods.html?subcat=Книжные шкафы">Книжные шкафы</a>
-      </li>
-      <li class="subcatalog-list__item">
-        <a href="goods.html?subcat=Стеллажи">Стеллажи</a>
-      </li>
-      <li class="subcatalog-list__item">
-        <a href="goods.html?subcat=Шкаф для ТВ">Шкаф для ТВ</a>
-      </li>
-      <li class="subcatalog-list__item">
-        <a href="goods.html?subcat=Кровати">Кровати</a>
-      </li>
-      <li class="subcatalog-list__item">
-        <a href="goods.html?subcat=Комоды">Комоды</a>
-      </li>
-      <li class="subcatalog-list__item">
-        <a href="goods.html?subcat=Столы">Столы</a>
-      </li>
-      <li class="subcatalog-list__item">
-        <a href="goods.html?subcat=Письменные столы">Письменные столы</a>
-      </li>
-      <li class="subcatalog-list__item">
-        <a href="goods.html?subcat=Стулья для письменного стола"
-          >Стулья для письменного стола</a
-        >
-      </li>
+      ${listHTML}     
     </ul>
-  </div>
     `;
-    document.body.insertAdjacentHTML('beforeend', subCatalogHTML);
+    subCatalog.insertAdjacentHTML('afterbegin', subCatalogHTML);
+  }
+  document.body.insertAdjacentElement('beforeend', subCatalog);
+  return updateHTML;
+
 };
 
 export default generateSubCatalog;

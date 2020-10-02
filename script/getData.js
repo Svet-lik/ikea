@@ -6,13 +6,15 @@ const PARAM = {
 
 export const getData = {
     url: 'database/dataBase.json',
+    // запрос на сервер с помощью fetch на url 'database/dataBase.json'
     get(process) {
-        fetch(this.url)
+        fetch(this.url) // обработка данных перевод из json в массив
             .then(response => response.json())
             .then(process);
     },
     wishList(list, callback) {
         this.get((data) => {
+            // фильтруем список/массив dataBase.json и возвращаем те которые содержат id из списка wishList
             const result = data.filter((item) => list.includes(item.id));
             callback(result);
         })
@@ -37,7 +39,8 @@ export const getData = {
             callback(result);
         })
     },
-    search(value, callback) {
+    //осуществляем поик товаров по заданному слову
+    search(value, callback) { 
         this.get((data) => {
             const result = data.filter(item => {
                 for (const prop in item) {
@@ -50,25 +53,29 @@ export const getData = {
             callback(result);
         })
     },
-    catalog(callback) {
+    //все категории
+    catalog(callback) { 
         this.get((data) => {
-            const result = []; 
-            data.forEach(item => {
-                if (!result.includes(item.category)) {
-                result.push(item.category);
+            const result = data.reduce((arr, item) => {
+                if (!arr.includes(item.category)) {
+                    arr.push(item.category);
                 }
-            });
+                return arr;
+            }, [])
             callback(result);
         })
     },
-    subCatalog(value, callback) {
+    //создаёт список подкатегорий для меню
+    subCatalog(value, callback) { 
         this.get((data) => {
-            const result = [];
-            data.filter(item => item.category === value)
-            .forEach(item => {
-                if (!result.includes(item.subcategory)) {
-                    result.push(item.subcategory)}
-            })
+            const result =  data
+            .reduce((arr,item) => {
+                if (!arr.includes(item.subcategory) && 
+                item.category === value) {
+                    arr.push(item.subcategory);
+                }
+                return arr;
+            }, []);
             callback(result);
         })
     },
