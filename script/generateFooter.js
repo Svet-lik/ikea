@@ -1,6 +1,4 @@
-import {
-  getData
-} from './getData.js';
+import getData from './getData.js';
 const generateFooter = () => {
 
   getData.catalog(data => {
